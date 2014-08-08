@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Addon Author="Kowh" APIVersion="9" Name="Pythonic-optparse" Description="Provides Python optparse style slashcommand parsing">
+	<Script Name="optparse.lua"/>
+</Addon>
