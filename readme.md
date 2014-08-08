@@ -3,21 +3,17 @@
 
 SYNOPSIS
 
-  local OptionParser = require "pythonic.optparse" . OptionParser
-  local opt = OptionParser{usage="%prog [options] [gzip-file...]",
+  local Optparse = Apollo.GetPackage("Optparse-0.3").tPackage
+  local opt = OptParse:OptionParser{usage="%prog [options] [...]",
                            version="foo 1.23", add_help_option=false}
   opt.add_option{"-h", "--help", action="store_true", dest="help",
-                 help="give this help"}
+                 help="give this help", default="default"}
   opt.add_option{
     "-f", "--force", dest="force", action="store_true",
     help="force overwrite of output file"}
 
   local options, args = opt.parse_args()
 
-  if options.help then opt.print_help(); os.exit(1) end
-  if options.force then print 'f' end
-  for _, name in ipairs(args) do print(name) end
-      
 DESCRIPTION
 
   This library provides a command-line parsing[1] similar to Python optparse [2-3].
@@ -33,11 +29,15 @@ API
   See source code and also compare to Python's docs [2,3] for details because
   the following documentation is incomplete.
   
-  opt = OptionParser {usage=usage, version=version, add_help_option=add_help_option}
+  opt = OptionParser {command=command, usage=usage, version=version, 
+    add_help_option=add_help_option, callback_write=callback_write}
   
     Create command line parser.
+
+    callback_write: If provided, this function will be used for output instead of the command channel
+    command: Name of the slash command
   
-  opt.add_options{shortflag, longflag, action=action, metavar=metavar, dest=dest, help=help}
+  opt.add_options{shortflag, longflag, action=action, metavar=metavar, dest=dest, help=help, default=default}
   
     Add command line option specification.  This may be called multiple times.
  
